@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>Keep-Secure</title>
+    <link rel="stylesheet" href="./../../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./../design/css/signup.css" />
+</head>
+
+<body>
+    <h1>Initialize The Application</h1>
+    <hr>
+    <form>
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname">
+                <p id="errfname" style="color: red"></p>
+            </div>
+            <div class="col-sm-5 form-group" style="margin-left: 2%;">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname">
+                <p id="errlname" style="color: red"></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <label for="lname">Email(Use to Reset Your Password and Send Data To This Email)</label>
+                <input type="text" id="email" style="margin-top: 6%;">
+                <p id="erremail" style="color: red"></p>
+            </div>
+            <div class="col-sm-5 form-group" style="margin-left: 2%;">
+                <label for="lname">Encrypt Key (For Encrypted Your Details, Minmum 12 Character Long, Use Combination)</label>
+                <input type="text" id="ekey">
+                <p id="errencryp" style="color: red"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <label for="fname">Password (Minimum 6 Character Long, Use Combination)</label>
+                <input type="password" id="password">
+                <p id="errpass" style="color: red"></p>
+            </div>
+            <div class="col-sm-5 form-group" style="margin-left: 2%;">
+                <label for="fname">Confirm-Password</label>
+                <input type="password" id="cpassword" style="margin-top: 6%;">
+                <p id="errcpass" style="color: red"></p>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 3%;">
+            <butoon id="initializeBtn" type="button" class="btn btn-primary" style="margin-left: 45%;">Initialize</butoon>
+        </div>
+    </form>
+    <script src="./../scripts/signup.js"></script>
+</body>
+
+</html>

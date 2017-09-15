@@ -1,0 +1,42 @@
+h1{
+    font-family: fantasy;
+    font-weight: bolder;
+    font-size: medium;
+    color: crimson;
+}
+hr{
+    margin-top: -1%;    
+    height: 5px;
+    background: darkblue;
+}
+body{
+    background-image: url('./../images/signupback.jpg');
+}
+form{
+    margin-left: 2%;
+}
+
+p{
+    color: crimson;
+    font-weight: bold;
+    font-variant: all-petite-caps;
+    font-size: smaller;
+}
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 2px solid green;
+    display: block;
+    height: 36px;
+    background: transparent;
+    margin-top: -1%;
+    font-size: large;
+    font-weight: 900;
+    font-family: sans-serif;
+    color: darkgreen;
+}
+
+
+

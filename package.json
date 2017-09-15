@@ -1,0 +1,24 @@
+{
+  "name": "keep-secure",
+  "version": "1.0.0",
+  "description": "Easy way to remember your accounts password secure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bapinmalakar/keep-secure.git"
+  },
+  "author": "Biplab Malakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bapinmalakar/keep-secure/issues"
+  },
+  "homepage": "https://github.com/bapinmalakar/keep-secure#readme",
+  "dependencies": {
+    "crypto": "1.0.1",
+    "jquery": "3.2.1",
+    "node-notifier": "5.1.2"
+  }
+}

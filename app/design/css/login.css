@@ -1,0 +1,26 @@
+body{
+    background-image: url('./../images/loginlock.png');
+    background-repeat: no-repeat;
+    background-size: 220px 200px;
+}
+input{
+    border: 1px solid #848484; 
+    -webkit-border-radius: 30px; 
+    -moz-border-radius: 30px; 
+    border-radius: 30px; 
+    outline:0; 
+    height:25px; 
+    width: 275px; 
+    padding-left:10px; 
+    padding-right:10px; 
+}
+#loginBtn{
+    border-radius: 50px;
+}
+p{
+    font-stretch: semi-condensed;
+    color: deeppink;
+    font-family: cursive;
+    font-weight: 600;
+    margin-left: 2%;
+}

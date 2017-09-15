@@ -1,0 +1,82 @@
+#account_list ul{
+    list-style:none;
+}
+div #account_list{
+    background: azure;
+    height: 583px;
+    border-right: 2px solid green;
+}
+#account_list ul li{
+    margin-top: 2px;
+    font-family:Georgia,serif,Times; 
+    font-size:17px;
+    margin-left: -22%;
+}
+#account_list ul li{
+    display:block; 
+    width:100%; 
+    background-color:#333; 
+    color: white;
+    border-left:1px solid #222; 
+    border-right:1px solid #222;
+    text-decoration:none; 
+    color:#bfe1f1;
+}
+#account_list ul li:hover{
+    cursor: pointer;
+    -moz-transform:rotate(-5deg); 
+    -moz-box-shadow:10px 10px 20px #000000;
+    -webkit-transform:rotate(-5deg); 
+    -webkit-box-shadow:10px 10px 20px #000000;
+    transform:rotate(-5deg); 
+    box-shadow:10px 10px 20px #000000;
+    text-decoration: underline;
+}
+
+input::-webkit-input-placeholder{
+    color: green;
+}
+.add{
+    border: 1px solid #848484; 
+    -webkit-border-radius: 30px; 
+    -moz-border-radius: 30px; 
+    border-radius: 30px; 
+    outline:0; 
+    height:25px; 
+    width: 275px; 
+    padding-left:10px; 
+    padding-right:10px; 
+}
+
+#addForm{
+    margin-left: 3%;
+    margin-top: 6%;
+    box-shadow: 9px 11px 5px 28px black;
+    background-color: currentColor;
+}
+
+#hrdiv {
+    margin-top: 12%;
+    margin-left: -2%;
+    border-bottom: solid;
+    width: 570px;
+}
+#console{
+    margin-left: -2%;
+    height: 180px;
+    background-color: yellowgreen;
+    width: 570px;
+    overflow-y: scroll;
+}
+#appStatus{
+    color: green;
+    margin-left: 2%;
+}
+#errorConsole{
+    font-family: monospace;
+    font-weight: 900;
+    font-variant: petite-caps;
+    font-size: larger;
+    color: red;
+    margin-left: 2%;
+}
