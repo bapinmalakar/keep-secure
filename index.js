@@ -75,7 +75,9 @@ ipcMain.on('send-user-data', (event, args) => {
     event.sender.send('receive-user-data', userInfo);
 })
 ipcMain.on('success-message', (event, args) => notification.successNotify(args));
-
+ipcMain.on('close-app', (event,args)=> {
+    app.quit();
+});
 module.exports = {
     userInfo: () => { return userInfo },
     userData: () => { return userData }

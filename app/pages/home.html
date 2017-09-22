@@ -17,55 +17,83 @@
                 <li><a href="#">Change Key</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span> Add New</a></li>
-                <li><a href="javascript:void(0)"><span class="glyphicon glyphicon-trash"> Delete</span></a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-off"></span> Quit</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Lock</a></li>
+                <li id="addClick" title="Add new account"><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span> Add New</a></li>
+                <li id="quitClick" title="Close"><a href="#"><span class="glyphicon glyphicon-off"></span> Quit</a></li>
+                <li id="lockClick" title="Lock application"><a href="#"><span class="glyphicon glyphicon-log-in"></span> Lock</a></li>
             </ul>
         </div>
     </nav>
     <div>
         <div class="col-sm-4" id="account_list">
-            <ul>
-                <li>Google Account Details</li>
-                <li>Facebook Account Details</li>
-                <li>Youtube Account Details</li>
-                <li>Freelencer's Account Details</li>
+            <ul style="display: none;">
             </ul>
+            <div id="emptyList" style="display: none;padding-top: 50%;">
+                <h1 style="color:brown">Please Add Some Account</h1>
+            </div>
         </div>
+
         <div class="col-sm-6">
-            <div class="row" style="margin-left: 5%;">
-                <div class="row" id="addForm">
+            <div class="row" style="padding-left: 5%;">
+                <div class="row" id="addForm" style="display: none;">
                     <div class="row" style="margin-left: 9%;margin-top: 1%;">
                         <h1 style="color:darkgray; margin-top: -1%;">Add Account Details</h1>
                         <input type="text" class="add" placeholder="Type account name; must be unique" id="account_name" />
                         <br><br>
                         <input type="text" class="add" placeholder="User_id of this account" id="account_userid" />
                         <br><br>
-                        <input type="password" class="add" placeholder="password of this account" style="margin-top:1%" id="account_password" />
+                        <div>
+                            <input type="password" class="add" placeholder="password of this account" style="margin-top:1%" id="account_password" />
+                            <a style="margin-top: 5%;" href="javascript:void(0)" title="View Password" id="addFormPassView"><i class="glyphicon glyphicon-eye-close"></i></a>
+                        </div>
                         <br><br>
                         <input type="text" class="add" placeholder="account site url (like: www.example.com)" id="account_url" />
                         <br><br>
                     </div>
                     <div class="row" style="margin-left: 9%; margin-top: 2%;">
-                        <button type="button" class="btn btn-success">Add</button>
-                        <button type="button" class="btn btn-warning"> Clear</button>
-                        <button type="button" class="btn btn-default"> Cancel</button>
+                        <a href="javascript:void(0)" id="addFormSave"><i class="glyphicon glyphicon-ok" style="color: green;"></i><b>Save</b></a>
+                        <a href="javascript:void(0)" id="addFormClear" style="margin-left: 2%;"><i class="glyphicon glyphicon-repeat"></i> <b>Clear</b></a>
+                        <a href="javascript:void(0)" id="addFormCancel"> <i class="glyphicon glyphicon-remove" style="color: red"></i><b>Close</b></a>
                     </div>
                     <br><br>
                 </div>
-            </div>
-            <div class="row" id="hrdiv">
-            </div>
-            <div class="row" id="console">
-                <div class="row" id="errorConsole">
-                        <div>
-                            <h6>Error1</h6>
-                        </div>  
+
+                <div id="heading" style="padding-top: 15%;display: none;">
+                    <h1>Select An Action</h1>
                 </div>
-                <div class="row" id="appStatus">
-                    <div>
-                        <h6>Success</h6>
+                <div class="row .editForm" style="padding-top: 10%; padding-left: 5%;">
+                    <div id="editForm" style="display:none;">
+                        <div class="row formm">
+                            <input type="text" class="add" placeholder="Type account name; must be unique" id="edit_name" readonly/>
+                            <br><br>
+                            <input type="text" class="add" placeholder="User_id of this account" id="edit_userid" />
+                            <br><br>
+                            <div>
+                                <input type="password" class="add" placeholder="password of this account" style="margin-top:1%" id="edit_password" />
+                                <a style="margin-top: 5%;" href="javascript:void(0)" title="View Password" id="editFormPassView"><i class="glyphicon glyphicon-eye-close"></i></a>
+                            </div>
+                            <br>
+                            <input type="text" class="add" placeholder="account site url (like: www.example.com)" id="edit_url" />
+                            <br><br>
+                        </div>
+                        <div class="row btnForm">
+                            <a href="javascript:void(0)" id="addFormSave"><i class="glyphicon glyphicon-pencil" style="color: green;"></i><b style="color: brown;">  Update</b></a>
+                            <a href="javascript:void(0)" id="addFormClear" style="margin-left: 2%;"><i class="glyphicon glyphicon-trash"></i> <b style="color: dimgray;">  Delete</b></a>
+                            <a href="javascript:void(0)" id="addFormCancel" style="margin-left: 2%;"> <i class="glyphicon glyphicon-remove" style="color: red"></i><b style="color: darkred;">  Close</b></a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="lastDiv">
+                <div class="row" id="hrdiv">
+                </div>
+                <div class="row" id="console">
+                    <div class="row" id="errorConsole">
+
+                    </div>
+                    <div class="row" id="appStatus">
+
                     </div>
                 </div>
             </div>
