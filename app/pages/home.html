@@ -23,7 +23,7 @@
             </ul>
         </div>
     </nav>
-    <div>
+    <div id="bodyDiv">
         <div class="col-sm-4" id="account_list">
             <ul style="display: none;">
             </ul>
@@ -76,9 +76,9 @@
                             <br><br>
                         </div>
                         <div class="row btnForm">
-                            <a href="javascript:void(0)" id="addFormSave"><i class="glyphicon glyphicon-pencil" style="color: green;"></i><b style="color: brown;">  Update</b></a>
-                            <a href="javascript:void(0)" id="addFormClear" style="margin-left: 2%;"><i class="glyphicon glyphicon-trash"></i> <b style="color: dimgray;">  Delete</b></a>
-                            <a href="javascript:void(0)" id="addFormCancel" style="margin-left: 2%;"> <i class="glyphicon glyphicon-remove" style="color: red"></i><b style="color: darkred;">  Close</b></a>
+                            <a href="javascript:void(0)" id="editFormSave"><i class="glyphicon glyphicon-pencil" style="color: green;"></i><b style="color: brown;">  Edit</b></a>
+                            <a href="javascript:void(0)" id="editFormDelete" style="margin-left: 2%;"><i class="glyphicon glyphicon-trash"></i> <b style="color: dimgray;">  Delete</b></a>
+                            <a href="javascript:void(0)" id="editFormCancel" style="margin-left: 2%;"> <i class="glyphicon glyphicon-remove" style="color: red"></i><b style="color: darkred;">  Close</b></a>
                         </div>
                     </div>
                 </div>
@@ -99,6 +99,18 @@
             </div>
         </div>
     </div>
+    <div class="row" style="display:none;" id="verify">
+        <div class="close">
+            <a href="javascript:void(0)" class="verifyClose"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+        <div class="body">
+            <input type="password" class="add" placeholder="Enter your password" style="margin-top:1%" id="verifyPassword" />
+            <p class="verifyError" style="color: red;"></p>
+            <a href="javascript:void(0)" id="verifyPasswordBtn"> Verify</a>
+        </div>
+    </div>
+    <!--Modal For Password-->
+
     <script src="../scripts/home.js"></script>
 </body>
 

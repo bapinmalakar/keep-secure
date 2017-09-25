@@ -10,6 +10,8 @@ const encrypt = require(path.resolve('app/helper/encrypt.js'));
 const decrypt = require(path.resolve('app/helper/decrypt.js'));
 const validation = require(path.resolve('app/scripts/validation.js'));
 const pageCall = require(path.resolve('app/scripts/pageCall.js'));
+
+let taskToDo = '';
 let userInfo;
 let userData = [];
 
@@ -23,7 +25,8 @@ $('#addClick').on('click', () => {
     consoleShow(true, true);
     clearConsole(true, true);
     consoleShow(false, false);
-    displayDiv(true);});
+    displayDiv(true);
+});
 $('#addFormCancel').on('click', () => $('#addForm').hide());
 $('#addFormClear').on('click', () => {
     clearAddForm();
@@ -113,6 +116,7 @@ $('#account_list').on('click', 'ul li', (e) => {
         displayDiv(false, false, true);
         editDivLoad(e);
     }
+    alert('Done');
 })
 $('#lockClick').on('click', () => {
     userData = [];
@@ -124,17 +128,44 @@ $('#lockClick').on('click', () => {
 $('#quitClick').on('click', () => {
     alert('click');
     ipcRenderer.send('close-app', '');
+});
+$('#editFormPassView .glyphicon').on('click', (e) => {
+    if ($(e.target).hasClass('glyphicon-eye-close')) {
+        taskToDo = 'showpass';
+        verifyAlertShow();
+    }
+    else {
+        $(e.target).removeClass('glyphicon-eye-open');
+        $(e.target).addClass('glyphicon-eye-close');
+        $('#edit_password').attr('type', 'password');
+    }
+});
+$('#editFormDelete').on('click', () => {
+    let option = confirm('Are you want to delete?');
+    if (option == true) {
+        taskToDo = 'deleteRecord';
+        verifyAlertShow();
+    }
+})
+$('#verify .close .verifyClose').on('click', () => {
+    verifyAlertHide();
+});
+$('#verifyPasswordBtn').on('click', () => {
+    if (verifyUser()) {
+        verifyAlertHide();
+        performTask();
+    }
 })
 
 function editDivLoad(e) {
     const txt = $(e.target).text();
-    alert(txt + '===>');
     const obj = (userData.filter(d => d.name == txt))[0];
-    if(obj){
+    if (obj) {
         $('#edit_name').val(obj.name);
         $('#edit_userid').val(obj.userid);
         $('#edit_password').val(obj.password);
         $('#edit_url').val(obj.url);
+        $('#editFormSave').text('  Edit');
     }
 }
 function clearAddForm() {
@@ -209,6 +240,54 @@ function displayDiv(addForm = false, headingDiv = false, editDiv = false) {
         $('#editForm').show();
     }
 }
+function verifyAlertShow() {
+    $('#verify').show();
+    $('nav, #bodyDiv').addClass('blur');
+}
+function verifyAlertHide() {
+    $('#verify').hide();
+    $('nav, #bodyDiv').removeClass('blur');
+}
+function verifyUser() {
+    if ($('#verifyPassword').val() == '') {
+        $('.verifyError').text('Password required');
+        return false;
+    }
+    if (!validation.passwordValidation($('#verifyPassword').val()) || $('#verifyPassword').val() != userInfo.password) {
+        $('.verifyError').text('Enter valid password');
+        return false;
+    }
+    if ($('#verifyPassword').val() == userInfo.password) {
+        $('#verifyPassword').val('');
+        $('.verifyError').text('');
+        return true;
+    }
+}
+function performTask() {
+    if (taskToDo) {
+        if (taskToDo == 'showPass') {
+            $('#editFormPassView .glyphicon').removeClass('glyphicon-eye-close ');
+            $('#editFormPassView .glyphicon').addClass('glyphicon-eye-open');
+            $('#edit_password').attr('type', 'text');
+            taskToDo='';
+            return;
+        }
+        if (taskToDo == 'deleteRecord'){
+            let txt = $('#edit_name').val();
+            let index = userData.findIndex(d=> d.name == txt);
+            if(index){
+                userData.splice(index, 1);
+                if(userData.length<= 0){
+                    fs.readFileSync(env.USER_PASSWORD_FILE, '');
+                    $('#edit_name').val('');
+                    $('#edit_userid').val('');
+                    $
+                }
+            }
+        }
+    }
+}
+
 ipcRenderer.on('receive-user-info', (event, args) => {
     userInfo = args;
     initFun();
