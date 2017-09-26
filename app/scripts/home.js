@@ -46,7 +46,7 @@ $('#addFormSave').on('click', () => {
         addFormValid[0] = false;
     } else {
         let nam = $('#account_name').val();
-        if (userData.findIndex(d => d.name == nam) != -1) {
+        if (findIndex(nam)) {
             checkAndAppend('#console #errorConsole #errName', 'Account name must be unique', 'errName');
             addFormValid[0] = false;
         } else {
@@ -131,7 +131,7 @@ $('#quitClick').on('click', () => {
 });
 $('#editFormPassView .glyphicon').on('click', (e) => {
     if ($(e.target).hasClass('glyphicon-eye-close')) {
-        taskToDo = 'showpass';
+        taskToDo = 'showPass';
         verifyAlertShow();
     }
     else {
@@ -149,24 +149,79 @@ $('#editFormDelete').on('click', () => {
 })
 $('#verify .close .verifyClose').on('click', () => {
     verifyAlertHide();
+    taskToDo = '';
 });
 $('#verifyPasswordBtn').on('click', () => {
     if (verifyUser()) {
         verifyAlertHide();
         performTask();
     }
+});
+$('#editFormSave').on('click', () => {
+    addFormValidReset();
+    clearConsole(false, true);
+    consoleShow(true, false);
+    addFormValid[0] = true;
+    if ($('#edit_userid').val() == '') {
+        checkAndAppend('#console #errorConsole #errId', 'Enter account userid', 'errId');
+        addFormValid[1] = false;
+    }
+    else {
+        deletErrTag('#console #errorConsole #errId');
+        addFormValid[1] = true;
+    }
+    if ($('#edit_password').val() == '') {
+        checkAndAppend('#console #errorConsole #errPass', 'Enter account password', 'errPass');
+        addFormValid[2] = false;
+    }
+    else {
+        deletErrTag('#console #errorConsole #errPass');
+        addFormValid[2] = true;
+    }
+    if ($('#edit_url').val() == '') {
+        deletErrTag('#console #errorConsole #errUrl');
+        addFormValid[3] = true;
+    }
+    else if ($('#edit_url').val() != '' && !validation.urlValidation($('#edit_url').val())) {
+        checkAndAppend('#console #errorConsole #errUrl', 'Enter valid URL', 'errPass');
+        addFormValid[3] = false;
+    }
+    else {
+        deletErrTag('#console #errorConsole #errUrl');
+        addFormValid[3] = true;
+    }
+
+    if (addFormValid.filter(d => d == false).length <= 0) {
+        const txt = $('#edit_name').val();
+        if (findIndex(txt) && confirm('Are you sure for update?')) {
+            taskToDo = "editRecord";
+            verifyAlertShow();
+        }
+    }
+});
+$('#editFormCancel').on('click', () => {
+    consoleShow(true, true);
+    clearConsole(true, true);
+    consoleShow(false, false);
+    displayDiv(false, true, false);
 })
 
+function findIndex(txt) {
+    return userData.findIndex(d => d.name == txt);
+}
 function editDivLoad(e) {
     const txt = $(e.target).text();
     const obj = (userData.filter(d => d.name == txt))[0];
     if (obj) {
-        $('#edit_name').val(obj.name);
-        $('#edit_userid').val(obj.userid);
-        $('#edit_password').val(obj.password);
-        $('#edit_url').val(obj.url);
-        $('#editFormSave').text('  Edit');
+        loadEditData(obj);
     }
+}
+function loadEditData(obj) {
+    $('#edit_name').val(obj.name);
+    $('#edit_userid').val(obj.userid);
+    $('#edit_password').val(obj.password);
+    $('#edit_url').val(obj.url);
+    $('#editFormSave b').text('  Edit');
 }
 function clearAddForm() {
     ['#account_name', '#account_userid', '#account_password', '#account_url'].map(d => $(d).val(''));
@@ -192,20 +247,25 @@ function clearConsole(error, succ) {
 function initFun() {
     if (fs.existsSync(env.USER_PASSWORD_FILE)) {
         let data = fs.readFileSync(env.USER_PASSWORD_FILE, 'utf8').toString();
-        if (!data.trim()) $('#account_list #emptyList').show();
-        else {
-            userData = JSON.parse(decrypt.decryptUserData(data, userInfo.key));
-            accountList();
-        }
+        if (!data.trim()) userData = [];
+        else userData = JSON.parse(decrypt.decryptUserData(data, userInfo.key));
+        accountList();
     }
     else $('#account_list #emptyList').show();
 }
 function accountList() {
-    $('#account_list #emptyList').hide();
-    $('#account_list ul').show();
-    $('#account_list ul').empty();
-    for (let item of userData)
-        $('#account_list ul').append('<li>' + item.name + '</li>');
+    if (userData.length <= 0) {
+        $('#account_list #emptyList').show();
+        $('#account_list ul').hide();
+    }
+    else {
+        $('#account_list #emptyList').hide();
+        $('#account_list ul').show();
+        $('#account_list ul').empty();
+        for (let item of userData)
+            $('#account_list ul').append('<li>' + item.name + '</li>');
+    }
+
 }
 function checkAndAppend(checkid, appentText, id) {
     if ($(checkid).length > 0)
@@ -269,20 +329,57 @@ function performTask() {
             $('#editFormPassView .glyphicon').removeClass('glyphicon-eye-close ');
             $('#editFormPassView .glyphicon').addClass('glyphicon-eye-open');
             $('#edit_password').attr('type', 'text');
-            taskToDo='';
+            taskToDo = '';
             return;
         }
-        if (taskToDo == 'deleteRecord'){
+        if (taskToDo == 'deleteRecord') {
             let txt = $('#edit_name').val();
-            let index = userData.findIndex(d=> d.name == txt);
-            if(index){
+            let index = findIndex(txt);
+            if (index) {
                 userData.splice(index, 1);
-                if(userData.length<= 0){
-                    fs.readFileSync(env.USER_PASSWORD_FILE, '');
-                    $('#edit_name').val('');
-                    $('#edit_userid').val('');
-                    $
+                ['#edit_name', '#edit_userid', '#edit_password', '#edit_url'].map(d => $(d).val(''));
+                if ($('#editFormPassView .glyphicon').hasClass('glyphicon-eye-open')) {
+                    $('#editFormPassView .glyphicon').removeClass('glyphicon-eye-open');
+                    $('#editFormPassView .glyphicon').addClass('glyphicon-eye-close');
+                    $('#edit_password').attr('type', 'password');
                 }
+                $('#account_list ul').empty();
+                accountList();
+                if (userData.length <= 0) {
+                    fs.writeFileSync(env.USER_PASSWORD_FILE, '');
+                    displayDiv(false, true, false);
+                } else {
+                    if ((userData.length - 1) >= index)
+                        loadEditData(userData[index]);
+                    else
+                        loadEditData(userData[index - 1]);
+                    fs.writeFileSync(env.USER_PASSWORD_FILE, encrypt.encryptData(JSON.stringify(userData), userInfo.key));
+                }
+                consoleShow(true, true);
+                clearConsole(true, true);
+                consoleShow(false, true);
+                consoleSetMsg(false, '', true, '<div><h2>Data Successfully Deleted!</h2></div>')
+            }
+            taskToDo = '';
+            return;
+        }
+        if (taskToDo == "editRecord") {
+            const txt = $('#edit_name').val();
+            alert('call   ' + txt);
+            const index = findIndex(txt);
+            alert(index);
+            if (index) {
+                alert('call1');
+                userData[index].userid = $('#edit_userid').val();
+                userData[index].password = $('#edit_password').val();
+                userData[index].url = $('#edit_url').val();
+                alert('call2');
+                fs.writeFileSync(env.USER_PASSWORD_FILE, encrypt.encryptData(JSON.stringify(userData), userInfo.key));
+                consoleShow(true, true);
+                clearConsole(true, true);
+                consoleShow(false, true);
+                consoleSetMsg(false, '', true, '<div><h2>Account Successfully Updated</h2></div>');
+                taskToDo = '';
             }
         }
     }
