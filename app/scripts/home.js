@@ -301,7 +301,7 @@ function displayDiv(addForm = false, headingDiv = false, editDiv = false) {
     }
 }
 function verifyAlertShow() {
-    $('#verify').show();
+    $('#verify').show(verifyDivInit);
     $('nav, #bodyDiv').addClass('blur');
 }
 function verifyAlertHide() {
@@ -383,6 +383,10 @@ function performTask() {
             }
         }
     }
+}
+function verifyDivInit(){
+    $('#verify .body #verifyPassword').val('');
+    $('#verify .body .verifyError').text('');
 }
 
 ipcRenderer.on('receive-user-info', (event, args) => {

@@ -133,7 +133,31 @@ input::-webkit-input-placeholder{
     padding-left: 76%;
     padding-bottom: 10%;
 }
-
+#changePassword{
+    width: 590px;
+    border: solid;
+    position: absolute;
+    top: 129px;
+    left: 100px;
+}
+.passwordClose{
+    float: right;
+}
+.passwordBody div{
+    padding-top: 3%;
+    padding-left: 7%;
+}
+.passBtn{
+    padding-top: 1%;
+    float: right;
+    padding-right: 10px;
+}
+.passBtn a{
+    color: darkcyan;
+    font-size: larger;
+    font-stretch: ultra-expanded;
+    font-weight: 900;
+}
 .blur{
     -webkit-filter: blur(10px);
     -moz-filter: blur(10px);
