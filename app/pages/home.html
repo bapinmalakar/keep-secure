@@ -13,9 +13,9 @@
                 <a class="navbar-brand" id="userName" href="javascript:void(0)">Keep-Secure</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="#" title="Change existing password">Change Password</a></li>
-                <li><a href="#" title="Change your encryption key">Change Key</a></li>
-                <li><a href="#">Export my password</a></li>
+                <li><a href="#" id="changePassBtn" title="Change existing password">Change Password</a></li>
+                <li><a href="#" id="changeKeyBtn" title="Change your encryption key">Change Key</a></li>
+                <li><a href="#" id="exportCode" title="Save all password to a file"><i class="glyphicon glyphicon-upload"></i> Export Password</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li id="addClick" title="Add new account"><a href="javascript:void(0)"><span class="glyphicon glyphicon-shopping-cart"></span> Add New</a></li>
@@ -73,8 +73,11 @@
                                 <a style="margin-top: 5%;" href="javascript:void(0)" title="View Password" id="editFormPassView"><i class="glyphicon glyphicon-eye-close"></i></a>
                             </div>
                             <br>
-                            <input type="text" class="add" placeholder="account site url (like: www.example.com)" id="edit_url" />
-                            <br><br>
+                            <div>
+                                <input type="text" class="add" placeholder="account site url (like: www.example.com)" id="edit_url" />
+                                <a id="openUrl" title="Open URL"><i class="glyphicon glyphicon-share-alt"></i></a>
+                            </div>
+                            <br>
                         </div>
                         <div class="row btnForm">
                             <a href="javascript:void(0)" id="editFormSave"><i class="glyphicon glyphicon-pencil" style="color: green;"></i><b style="color: brown;">  Edit</b></a>
@@ -100,6 +103,7 @@
             </div>
         </div>
     </div>
+    <!--Modal For Instance verify-->
     <div class="row" style="display:none;" id="verify">
         <div class="close">
             <a href="javascript:void(0)" class="verifyClose"><i class="glyphicon glyphicon-remove"></i></a>
@@ -110,7 +114,44 @@
             <a href="javascript:void(0)" id="verifyPasswordBtn"> Verify</a>
         </div>
     </div>
-    <!--Modal For Password-->
+    <!--Modal For Change Password-->
+    <div style="display:none;" id="changePassword">
+        <div class="passwordClose">
+            <a href="javascript:void(0)" title="Close">
+                <i class="glyphicon glyphicon-remove"></i>
+            </a>
+        </div>
+        <div class="passwordBody">
+            <div class="first">
+                <input type="password" class="add passClass old" placeholder="Enter current password" id="oldPassword" value="hhhhhhhhh"
+                />
+                <p class="passErr old"></p>
+            </div>
+            <div>
+                <input type="password" class="add passClass new" placeholder="Enter new password" id="newPassword" value="hhhhhhhhh" />
+                <p class="passErr new"></p>
+            </div>
+            <div>
+                <input type="password" class="add passClass con" placeholder="Re-type password" id="confirmPassword" value="hhhhhhhhh" />
+                <p class="passErr con"></p>
+            </div>
+        </div>
+        <div class="passBtn">
+            <a class="change" href="javascript:void(0)" style="padding-right: 26px;">Change</a>
+            <a class="clear" href="javascript:void(0)">Clear</a>
+        </div>
+    </div>
+    <!--Modal For Change key-->
+    <div class="row" style="display:none;" id="keyChange">
+        <div class="close">
+            <a href="javascript:void(0)" class="verifyClose"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+        <div class="body">
+            <input type="text" class="add" placeholder="Enter new encryption key" style="margin-top:1%" id="keyUpdate" />
+            <p class="verifyError" style="color: red;"></p>
+            <a href="javascript:void(0)"> Change</a>
+        </div>
+    </div>
 
     <script src="../scripts/home.js"></script>
 </body>

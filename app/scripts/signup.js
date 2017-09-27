@@ -20,14 +20,17 @@ function errNotify() {
 }
 $('#initializeBtn').on('click', () => {
     //first name
+    $('#initializeBtn').text('Processing...');
     if (fname.val() == '') {
         errFName.text('First name required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.nameValidation(fname.val())) {
         errFName.text('First name only contain alphabte!');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.nameValidation(fname.val()))
@@ -37,11 +40,13 @@ $('#initializeBtn').on('click', () => {
     if (lname.val() == '') {
         errLName.text('Last name required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.nameValidation(lname.val())) {
         errLName.text('Last name only contain alphabate');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.nameValidation(lname.val()))
@@ -51,11 +56,13 @@ $('#initializeBtn').on('click', () => {
     if (email.val() == '') {
         errEmail.text('Email required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.emailValidation(email.val())) {
         errEmail.text('Invalid email');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.emailValidation(email.val()))
@@ -65,11 +72,13 @@ $('#initializeBtn').on('click', () => {
     if (key.val() == '') {
         errKey.text('Key Required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.encryptkeyValidation(key.val())) {
         errKey.text('key should be like min length 12, combination of digit alphabate, special character');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.encryptkeyValidation(key.val()))
@@ -79,11 +88,13 @@ $('#initializeBtn').on('click', () => {
     if (pass.val() == '') {
         errPass.text('Password required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.passwordValidation(pass.val())) {
         errPass.text('Password should be like: length minimum 6,combination of digit,alphabate,special character');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.passwordValidation(pass.val()))
@@ -93,16 +104,17 @@ $('#initializeBtn').on('click', () => {
     if (cpass.val() == '') {
         errCPass.text('Confirm password required');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (!validation.cpasswordValidation(cpass.val(), pass.val())) {
         errCPass.text('Password not match');
         errNotify();
+        $('#initializeBtn').text('Initialize');
         return false;
     }
     if (validation.cpasswordValidation(cpass.val(), pass.val()))
         errCPass.text('');
-
     let obj = {
         fname: fname.val().trim().toUpperCase(),
         lname: lname.val().trim().toUpperCase(),
@@ -112,8 +124,10 @@ $('#initializeBtn').on('click', () => {
     }
     validation.saveInfo(obj);
     ipcRenderer.send('success-message', 'App initialized successfully');
+    ipcRenderer.send('user-info', obj);
+    $('#initializeBtn').text('Initialize');
     let window = remote.getCurrentWindow();
-    pageCall('home');
+    pageCall('home', 900,700, 'project.png');
     window.close();
 })
 

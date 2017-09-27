@@ -42,7 +42,7 @@ let validation = {
         return (url.match(urlRegx) == null ? false : true);
     },
     saveInfo(obj) {
-        let data = encrypt.encryptUserInfo(JSON.parse(obj));
+        let data = encrypt.encryptUserInfo(JSON.stringify(obj));
         fs.writeFileSync(configure.USER_INFO_FILENAME, data);
     }
 }

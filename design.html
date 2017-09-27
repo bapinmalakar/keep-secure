@@ -10,7 +10,7 @@
             console.log('Running');
             $('#modalShow').click(() => {
                 console.log('run');
-                $('#changePassword').show();
+                $('#keyChange').show();
                 $('#h111').addClass('blur');
             })
         })
@@ -33,29 +33,14 @@
         </h1>
         <a id="modalShow" href="javascript:void(0);">Show</a>
     </div>
-    <div style="display:none;" id="changePassword">
-        <div class="passwordClose">
-            <a href="javascript:void(0)" title="Close">
-                <i class="glyphicon glyphicon-remove"></i>
-            </a>
+    <div class="row" style="display:none;" id="keyChange">
+        <div class="close">
+            <a href="javascript:void(0)" class="verifyClose"><i class="glyphicon glyphicon-remove"></i></a>
         </div>
-        <div class="passwordBody">
-            <div>
-                <input type="password" class="add" placeholder="Enter current password" id="oldPassword" />
-                <p class="passErr">Error1</p>
-            </div>
-            <div>
-                <input type="password" class="add" placeholder="Enter new password" id="newPassword" />
-                <p class="passErr">Error2</p>
-            </div>
-            <div>
-                <input type="password" class="add" placeholder="Re-type password" id="confirmPassword" />
-                <p class="passErr">Error3</p>
-            </div>
-        </div>
-        <div class="passBtn">
-            <a href="javascript:void(0)" style="padding-right: 26px;">Change</a>
-            <a href="javascript:void(0)">Clear</a>
+        <div class="body">
+            <input type="password" class="add" placeholder="Enter encryption key" style="margin-top:1%" id="keyUpdate" />
+            <p class="verifyError" style="color: red;"></p>
+            <a href="javascript:void(0)" id="verifyPasswordBtn"> Change</a>
         </div>
     </div>
 </body>
