@@ -7,7 +7,6 @@ const appPath = remote.app.getAppPath();
 const [path, fs] = [require('path'), require('fs')];
 const validation = require(path.resolve('app/scripts/validation.js'));
 const pageCall = require(path.resolve('app/scripts/pageCall.js'));
-alert('ooo');
 //All Input Field Id
 const [pass, cpass, email, fname, lname, key, errPass, errCPass, errEmail, errFName, errLName, errKey] =
     [$('#password'), $('#cpassword'), $('#email'), $('#fname'), $('#lname'), $('#ekey'), $('#errpass'), $('#errcpass'), $('#erremail'), $('#errfname'), $('#errlname'), $('#errencryp')];

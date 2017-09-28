@@ -13,7 +13,6 @@ const user = require(path.resolve('app/helper/global.js'));
 const [userid, pass, errUser, errPass] = [$('#userid'), $('#password'), $('#errId'), $('#errPass')];
 let password, useremail;
 
-alert('ok');
 function clear() {
     userid.val('');
     pass.val('');
@@ -22,7 +21,6 @@ function clear() {
 }
 $(document).ready(() => {
     clear();
-    alert('Ready');
 })
 
 $('#loginBtn').on('click', () => {
@@ -72,6 +70,7 @@ function loginFunction() {
         let data = fs.readFileSync(configuration.USER_INFO_FILENAME, 'utf8').toString().trim();
         if (!data) {
             alert('Error in application setup, uninstall app and reinstall again');
+            ipcRenderer.send('error-message',{err: 'Error in application setup, uninstall app and reinstall again'});
             changeText('Login');
             return false;
         }
@@ -80,6 +79,7 @@ function loginFunction() {
     }
     else {
         alert('Error in application setup, uninstall app and reinstall again');
+        ipcRenderer.send('error-message',{err: 'Error in application setup, uninstall app and reinstall again'});
         changeText('Login');
     }
 }
@@ -89,6 +89,7 @@ ipcRenderer.on('receive-user-info', (event, args) => {
         if (password == args.password) {
             user.setUserInfo(args);
             changeText('Login');
+            ipcRenderer.send('success-message', 'Authenticate user');
             let window = remote.getCurrentWindow();
             pageCall('home', 900,700, 'project.png');
             window.close();

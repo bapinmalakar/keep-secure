@@ -26,10 +26,19 @@
     </nav>
     <div id="bodyDiv">
         <div class="col-sm-4" id="account_list">
-            <ul style="display: none;">
+            <ul style="display: none; height: 73%;overflow: auto; border: solid;">
             </ul>
             <div id="emptyList" style="display: none;padding-top: 50%;">
                 <h1 style="color:brown">Please Add Some Account</h1>
+            </div>
+            <div id="warningdiv">
+                <h5>Warning</h5>
+                <div>
+                    <h6>Lock application before moving</h6>
+                    <h6>Don't share security info.</h6>
+                    <h6>Always close pop-up after use</h6>
+                    <h6>Use export when need to backup your info.</h6>
+                </div>
             </div>
         </div>
 
@@ -75,7 +84,7 @@
                             <br>
                             <div>
                                 <input type="text" class="add" placeholder="account site url (like: www.example.com)" id="edit_url" />
-                                <a id="openUrl" title="Open URL"><i class="glyphicon glyphicon-share-alt"></i></a>
+                                <a id="openUrl" href="javascript:void(0)" title="Open URL"><i class="glyphicon glyphicon-share-alt"></i></a>
                             </div>
                             <br>
                         </div>

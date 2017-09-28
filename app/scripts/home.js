@@ -1,7 +1,8 @@
 'use strict';
 const $ = require('jquery');
+const child_process = require('child_process');
 const remote = require('electron').remote;
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, shell } = require('electron');
 const { dialog } = require('electron').remote;
 remote.app.getAppPath();
 const path = require('path');
@@ -48,7 +49,6 @@ $('#addFormSave').on('click', () => {
     } else {
         let nam = $('#account_name').val();
         if (findIndex(nam) != -1) {
-            alert(findIndex(nam));
             checkAndAppend('#console #errorConsole #errName', 'Account name must be unique', 'errName');
             addFormValid[0] = false;
         } else {
@@ -118,7 +118,6 @@ $('#account_list').on('click', 'ul li', (e) => {
         displayDiv(false, false, true);
         editDivLoad(e);
     }
-    alert('Done');
 })
 $('#lockClick').on('click', () => {
     userData = [];
@@ -128,8 +127,8 @@ $('#lockClick').on('click', () => {
     window.close();
 })
 $('#quitClick').on('click', () => {
-    alert('click');
-    ipcRenderer.send('close-app', '');
+    if (confirm('Are you sure?'))
+        ipcRenderer.send('close-app', '');
 });
 $('#editFormPassView .glyphicon').on('click', (e) => {
     if ($(e.target).hasClass('glyphicon-eye-close')) {
@@ -249,6 +248,7 @@ $('.passBtn .change').on('click', () => {
             alert('Password Update Successfully!');
             $('nav,#bodyDiv').removeClass('blur');
             $('#changePassword').hide();
+            ipcRenderer.send('success-message', 'Password Update Successfully!');
         }
         else
             $('.passErr.old').text('Current password not match');
@@ -277,6 +277,7 @@ $('#keyChange .body a').on('click', () => {
         $('nav, #bodyDiv').removeClass('blur');
         $('#keyChange').hide();
         alert('Key update successfully!');
+        ipcRenderer.send('success-message', 'Key update successfully!');
     }
 
 });
@@ -291,9 +292,17 @@ $('#exportCode').on('click', () => {
         verifyAlertShow();
     }
 });
-$('#openUrl').on('click', ()=>{
-    alert(navigator.onLine);
-})
+$('#openUrl').on('click', () => {
+    if (navigator.onLine) {
+        let str = $('#edit_url').val().trim();
+        if (str.match(/http:\/\/|www.|https:\/\//i))
+            child_process.execSync('start ' + str);
+        else
+            child_process.execSync('start www.' + str);
+    }
+    else
+        ipcRenderer.send('error-message',{err: 'You are offline'});
+});
 
 function findIndex(txt) {
     return userData.findIndex(d => d.name == txt);
@@ -473,25 +482,26 @@ function performTask() {
         }
         if (taskToDo == 'exportFile') {
             if (userData.length) {
-                dialog.showSaveDialog({filters: [{
-                    name: 'text',
-                    extensions: ['txt']
-                }]}, (filename) => {
+                dialog.showSaveDialog({
+                    filters: [{
+                        name: 'text',
+                        extensions: ['txt']
+                    }]
+                }, (filename) => {
                     if (filename == null) {
-                        alert('Invalid file name');
+                        ipcRenderer.send('error-message', {err: 'Valid filename please'});
                         taskToDo = '';
                         return false;
                     }
-                    alert(filename);
                     let str = '';
                     userData.map(d => {
                         str += 'Account Name: ' + d.name + '\n\tUserid: ' + d.userid + '\n\t Password: ' + d.password + '\n\tUrl: ' + d.url + '\n\n';
                     });
                     fs.writeFile(filename, str, (err) => {
                         if (err)
-                            alert('Not able to create that file!');
+                            ipcRenderer.send('error-message',{err: 'Not able to create that file!'});
                         else
-                            alert('All data are saved!');
+                            ipcRenderer.send('success-message','All data are saved!');
                     });
                     taskToDo = '';
                 });

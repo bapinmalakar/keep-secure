@@ -53,7 +53,6 @@ let createWindow = {
 }
 
 ipcMain.on('error-message', (event, args) => {
-    console.log('ERROR');
     notification.errNotify(args.err);
 })
 

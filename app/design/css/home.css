@@ -10,7 +10,7 @@ div #account_list{
     margin-top: 2px;
     font-family:Georgia,serif,Times; 
     font-size:17px;
-    margin-left: -22%;
+    margin-left: -18%;
 }
 #account_list ul li{
     display:block; 
@@ -213,6 +213,22 @@ input::-webkit-input-placeholder{
     width: 97%; 
     padding-left:10px; 
     padding-right:10px;
+}
+#warningdiv{
+    padding-bottom: 23%;
+}
+#warningdiv h5{
+    color: darkred;
+    text-shadow: 27px 2px 1px red;
+    font-weight: bolder;
+    font-family: fantasy;
+    border-bottom: 3px solid coral;
+}
+#warningdiv div h6{
+    color: darkcyan;
+    text-align-last: right;
+    text-shadow: 5px 10px 2px darkslategrey;
+    font-family: fantasy;
 }
 .blur{
     -webkit-filter: blur(10px);
